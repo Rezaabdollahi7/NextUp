@@ -6,7 +6,7 @@ export const team: TeamMember[] = [
     name: "رضا عبدالهی",
     role: "Software Engineer · Full-Stack",
     location: "تهران",
-    bio: "مهندس نرم‌افزار با ۳ سال تجربه در توسعه محصولات وب مدرن و SaaS. تجربه ساخت و توسعه محصولات از مرحله ایده تا محیط Production.",
+    bio: "مهندس نرم‌افزار با ۳ سال تجربه در توسعه محصولات وب مدرن و SaaS. تجربه ساخت و توسعه محصولات از مرحله ایده تا محیط Production را دارد.",
     focus: [
       "React",
       "TypeScript",
@@ -16,7 +16,6 @@ export const team: TeamMember[] = [
       "Multi-Tenant Systems",
     ],
     skills: ["React", "TypeScript", "Node.js", "Prisma", "PostgreSQL", "Docker"],
-    image: "/images/team/reza-abdollahi.jpg",
     links: {
       github: "https://github.com/Rezaabdollahi7",
       portfolio: "https://srezadev.ir",
@@ -31,7 +30,6 @@ export const team: TeamMember[] = [
     bio: "توسعه‌دهنده Frontend با تمرکز بر ساخت رابط‌های کاربری مدرن، سریع و حرفه‌ای. تجربه در تبدیل ایده‌های پیچیده محصولات به تجربه‌های کاربری ساده و حرفه‌ای.",
     focus: ["Next.js", "React", "TypeScript", "Design Systems", "Modern UI Development"],
     skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "NestJS"],
-    image: "/images/team/mahdi-bagheri.jpg",
     links: {
       portfolio: "https://mahdibagheridev.ir",
       email: "mahdibagherichanel@gmail.com",

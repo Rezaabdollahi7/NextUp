@@ -31,8 +31,11 @@ export type TeamMember = {
   /** تمرکزهای اصلی — به‌صورت فهرست کوتاه زیر بیوگرافی نمایش داده می‌شود. */
   focus: string[];
   skills: string[];
-  /** مسیر تصویر در `public/images/team`. */
-  image: string;
+  /**
+   * مسیر تصویر در `public/images/team` — مثلاً `/images/team/reza-abdollahi.jpg`.
+   * تا وقتی خالی باشد، آواتار برندشده با حرف اول نام نمایش داده می‌شود.
+   */
+  image?: string;
   links: {
     portfolio?: string;
     github?: string;

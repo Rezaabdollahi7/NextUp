@@ -7,9 +7,9 @@ import { Sparkle } from "@/components/ui/sparkle";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { techStack } from "@/data/tech-stack";
 
-export function TechStack() {
+export function TechStack({ surface = "soft" }: { surface?: "light" | "soft" | "dark" }) {
   return (
-    <Section surface="soft" id="tech-stack">
+    <Section surface={surface} id="tech-stack">
       <Container>
         <Reveal>
           <SectionHeading
