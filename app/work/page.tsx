@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Section } from "@/components/layout/Section";
-import { WorkGrid } from "@/components/sections/work/WorkGrid";
+import { WorkGrid, type WorkGridItem } from "@/components/sections/work/WorkGrid";
+import { ProjectCard } from "@/components/ui/project-card";
+import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "نمونه‌کارها",
@@ -13,6 +15,20 @@ export const metadata: Metadata = {
 };
 
 export default function WorkPage() {
+  // کارت‌ها در سرور رندر می‌شوند و فقط انتخابشان به کلاینت سپرده می‌شود.
+  const items: WorkGridItem[] = projects.map((project, index) => ({
+    id: project.id,
+    category: project.category,
+    card: (
+      <ProjectCard
+        project={project}
+        tone={index % 3 === 1 ? "brand" : "ink"}
+        priority={index < 2}
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
+    ),
+  }));
+
   return (
     <>
       <PageHeader
@@ -24,7 +40,7 @@ export default function WorkPage() {
 
       <Section flush className="pt-4 pb-16 md:pb-24 lg:pb-32">
         <Container>
-          <WorkGrid />
+          <WorkGrid items={items} />
         </Container>
       </Section>
     </>

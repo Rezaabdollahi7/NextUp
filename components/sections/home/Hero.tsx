@@ -13,6 +13,7 @@ import { Icon } from "@/components/ui/icon";
 import { Marquee } from "@/components/ui/marquee";
 import { RotatingSeal } from "@/components/ui/rotating-seal";
 import { Sparkle } from "@/components/ui/sparkle";
+import { TechBadge } from "@/components/ui/tech-badge";
 import { teamStats } from "@/constants/stats";
 import { socialLinks } from "@/data/navigation";
 import { serviceTitles } from "@/data/services";
@@ -117,9 +118,11 @@ export function Hero() {
             <ul className="flex flex-wrap gap-2">
               {capabilities.map((item, index) => (
                 <li key={item}>
-                  <Badge size="sm" variant={index % 3 === 1 ? "brand" : "solid"}>
-                    {item}
-                  </Badge>
+                  <TechBadge
+                    name={item}
+                    size="sm"
+                    variant={index % 3 === 1 ? "brand" : "solid"}
+                  />
                 </li>
               ))}
             </ul>

@@ -1,8 +1,8 @@
 import { MapPin } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
+import { TechBadge } from "@/components/ui/tech-badge";
 import { TeamAvatar } from "@/components/ui/team-avatar";
 import { toTelHref } from "@/lib/utils";
 import type { IconName, TeamMember } from "@/types";
@@ -89,9 +89,7 @@ export function TeamCard({ member, tone = "brand" }: TeamCardProps) {
         <ul className="flex flex-wrap gap-2">
           {member.skills.map((skill) => (
             <li key={skill}>
-              <Badge size="sm" variant="outline">
-                {skill}
-              </Badge>
+              <TechBadge name={skill} size="sm" variant="outline" />
             </li>
           ))}
         </ul>

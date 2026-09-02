@@ -9,7 +9,7 @@ import { NextProject } from "@/components/sections/work/NextProject";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { ProjectImage } from "@/components/ui/project-image";
-import { Sparkle } from "@/components/ui/sparkle";
+import { TechBadge } from "@/components/ui/tech-badge";
 import { toPersianDigits } from "@/lib/utils";
 import { getNextProject, getProjectBySlug, projects } from "@/data/projects";
 
@@ -130,10 +130,7 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
           <ul className="flex flex-wrap gap-3">
             {project.technologies.map((tech) => (
               <li key={tech}>
-                <Badge size="md" variant="outline" className="gap-2">
-                  <Sparkle className="size-3" />
-                  {tech}
-                </Badge>
+                <TechBadge name={tech} size="md" variant="outline" />
               </li>
             ))}
           </ul>

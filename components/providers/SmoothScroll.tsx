@@ -22,6 +22,8 @@ const ANCHOR_OFFSET = -112;
 export function SmoothScroll() {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
+  const isFirstRender = useRef(true);
+  const isHistoryNavigation = useRef(false);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -73,10 +75,52 @@ export function SmoothScroll() {
     };
   }, []);
 
-  // با تغییر مسیر، اسکرول مجازی باید به بالای صفحه برگردد.
+  // پیمایش با دکمه‌ی «بازگشت» مرورگر نباید موقعیت ذخیره‌شده را از دست بدهد.
   useEffect(() => {
-    lenisRef.current?.scrollTo(0, { immediate: true });
-    ScrollTrigger.refresh();
+    const markHistoryNavigation = () => {
+      isHistoryNavigation.current = true;
+    };
+
+    window.addEventListener("popstate", markHistoryNavigation);
+    return () => window.removeEventListener("popstate", markHistoryNavigation);
+  }, []);
+
+  /**
+   * با تغییر مسیر باید از بالای صفحه‌ی جدید شروع کنیم.
+   *
+   * وقتی Lenis فعال است، بازنشانی خودکار اسکرول در Next انجام نمی‌شود و
+   * صفحه‌ی جدید از وسط باز می‌شود. علاوه بر آن `ScrollTrigger.refresh()`
+   * عمداً موقعیت اسکرول را حفظ می‌کند؛ پس ترتیب مهم است: اول اندازه‌گیری
+   * دوباره، بعد بازنشانی قطعی موقعیت.
+   */
+  useEffect(() => {
+    // اولین رندر: مسیر تازه باز شده و ممکن است لنگر (#hash) داشته باشد.
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (isHistoryNavigation.current) {
+      isHistoryNavigation.current = false;
+      ScrollTrigger.refresh();
+      return;
+    }
+
+    const toTop = () => {
+      lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+      window.scrollTo(0, 0);
+    };
+
+    toTop();
+
+    // ارتفاع صفحه‌ی جدید هنوز اندازه‌گیری نشده است؛ بعد از اولین فریم
+    // دوباره اندازه می‌گیریم و موقعیت را نهایی می‌کنیم.
+    const frame = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      toTop();
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [pathname]);
 
   return null;

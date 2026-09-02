@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ProjectImage } from "@/components/ui/project-image";
+import { TechBadge } from "@/components/ui/tech-badge";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types";
 
@@ -44,9 +45,7 @@ export function ProjectCard({
             {project.category}
           </Badge>
           {project.technologies.slice(0, 2).map((tech) => (
-            <Badge key={tech} size="sm" variant="outline">
-              {tech}
-            </Badge>
+            <TechBadge key={tech} name={tech} size="sm" variant="outline" />
           ))}
         </div>
 

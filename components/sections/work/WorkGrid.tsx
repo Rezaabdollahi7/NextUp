@@ -1,29 +1,36 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState, type ReactNode } from "react";
 
 import { Reveal } from "@/components/animations/Reveal";
-import { ProjectCard } from "@/components/ui/project-card";
-import { projects } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 const ALL = "همه";
 
-/** فهرست همه‌ی پروژه‌ها با فیلتر دسته‌بندی. */
-export function WorkGrid() {
+export type WorkGridItem = {
+  id: string;
+  category: string;
+  /** کارت پروژه که در سرور رندر شده است. */
+  card: ReactNode;
+};
+
+/**
+ * فیلتر دسته‌بندی پروژه‌ها.
+ *
+ * کارت‌ها به‌صورت آماده از سرور می‌آیند و اینجا فقط انتخاب می‌شوند؛ بنابراین
+ * کد کارت و مسیر نشان تکنولوژی‌ها هرگز به باندل کلاینت اضافه نمی‌شود.
+ */
+export function WorkGrid({ items }: { items: WorkGridItem[] }) {
   const categories = useMemo(
-    () => [ALL, ...Array.from(new Set(projects.map((project) => project.category)))],
-    [],
+    () => [ALL, ...Array.from(new Set(items.map((item) => item.category)))],
+    [items],
   );
 
   const [active, setActive] = useState(ALL);
 
   const visible = useMemo(
-    () =>
-      active === ALL
-        ? projects
-        : projects.filter((project) => project.category === active),
-    [active],
+    () => (active === ALL ? items : items.filter((item) => item.category === active)),
+    [active, items],
   );
 
   return (
@@ -57,14 +64,8 @@ export function WorkGrid() {
         شود و کارت‌های جدید بدون پرش جایگزین شوند.
       */}
       <Reveal key={active} stagger className="mt-8 grid gap-5 md:grid-cols-2">
-        {visible.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            tone={index % 3 === 1 ? "brand" : "ink"}
-            priority={index < 2}
-            sizes="(min-width: 768px) 50vw, 100vw"
-          />
+        {visible.map((item) => (
+          <Fragment key={item.id}>{item.card}</Fragment>
         ))}
       </Reveal>
 

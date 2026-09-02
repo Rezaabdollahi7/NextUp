@@ -1,8 +1,8 @@
 import { Reveal } from "@/components/animations/Reveal";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { TechBadge } from "@/components/ui/tech-badge";
 import { Sparkle } from "@/components/ui/sparkle";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { techStack } from "@/data/tech-stack";
@@ -35,9 +35,7 @@ export function TechStack({ surface = "soft" }: { surface?: "light" | "soft" | "
               <ul className="mt-5 flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <li key={item}>
-                    <Badge size="sm" variant="outline">
-                      {item}
-                    </Badge>
+                    <TechBadge name={item} size="sm" variant="outline" />
                   </li>
                 ))}
               </ul>
