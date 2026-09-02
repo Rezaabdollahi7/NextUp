@@ -19,6 +19,8 @@ export const team: TeamMember[] = [
     links: {
       github: "https://github.com/Rezaabdollahi7",
       portfolio: "https://srezadev.ir",
+      telegram: "https://t.me/rezaabdollahi7",
+      phone: "0921 981 1980",
       email: "srezaabdollahi7@gmail.com",
     },
   },
@@ -32,6 +34,8 @@ export const team: TeamMember[] = [
     skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "NestJS"],
     links: {
       portfolio: "https://mahdibagheridev.ir",
+      telegram: "https://t.me/MB_7_13",
+      phone: "0936 853 5209",
       email: "mahdibagherichanel@gmail.com",
     },
   },

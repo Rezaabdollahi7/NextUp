@@ -30,7 +30,13 @@ export function Section({
   return (
     <Tag
       data-surface={surface === "dark" ? "dark" : undefined}
-      className={cn(surfaces[surface], !flush && "section-y", className)}
+      className={cn(
+        surfaces[surface],
+        !flush && "section-y",
+        // بخش‌های لنگردار نباید زیر نوار شناور بالای صفحه بروند.
+        props.id && "scroll-mt-28",
+        className,
+      )}
       {...props}
     />
   );

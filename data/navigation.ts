@@ -1,4 +1,5 @@
 import { siteConfig } from "@/constants/site";
+import { toTelHref } from "@/lib/utils";
 import type { ContactLink, NavGroup, NavItem } from "@/types";
 
 /** منوی اصلی — در Navbar و منوی موبایل استفاده می‌شود. */
@@ -51,7 +52,7 @@ export const contactLinks: ContactLink[] = [
         {
           title: "شماره تماس",
           value: siteConfig.phone,
-          href: `tel:${siteConfig.phone}`,
+          href: `tel:${toTelHref(siteConfig.phone)}`,
           icon: "phone",
         } satisfies ContactLink,
       ]

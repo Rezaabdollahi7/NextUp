@@ -28,3 +28,16 @@ const PERSIAN_DIGITS = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "�
 export function toPersianDigits(value: string | number) {
   return String(value).replace(/\d/g, (digit) => PERSIAN_DIGITS[Number(digit)]);
 }
+
+/**
+ * ساخت لینک `tel:` از شماره‌ی محلی ایران.
+ * ورودی «۰۹۲۱ ۹۸۱ ۱۹۸۰» یا «+98 936 853 5209» هر دو پذیرفته می‌شوند.
+ */
+export function toTelHref(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+
+  if (digits.startsWith("98")) return `+${digits}`;
+  if (digits.startsWith("0")) return `+98${digits.slice(1)}`;
+
+  return `+${digits}`;
+}

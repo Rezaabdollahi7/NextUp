@@ -6,9 +6,9 @@ export type SiteConfig = {
   locale: string;
   email: string;
   github: string;
-  /** خالی بگذارید تا در رابط کاربری نمایش داده نشود. */
+  /** نشانی کامل تلگرام. خالی بگذارید تا نمایش داده نشود. */
   telegram: string;
-  /** خالی بگذارید تا در رابط کاربری نمایش داده نشود. */
+  /** شماره تماس به قالب خواندنی؛ لینک `tel:` خودکار ساخته می‌شود. */
   phone: string;
 };
 
@@ -29,6 +29,6 @@ export const siteConfig: SiteConfig = {
    *   telegram: "https://t.me/nextup"
    *   phone: "+989120000000"
    */
-  telegram: "",
-  phone: "",
+  telegram: "https://t.me/rezaabdollahi7",
+  phone: "0921 981 1980",
 };

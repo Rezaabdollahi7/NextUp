@@ -40,6 +40,9 @@ export type TeamMember = {
   links: {
     portfolio?: string;
     github?: string;
+    telegram?: string;
+    /** شماره تماس به قالب خواندنی؛ لینک `tel:` خودکار ساخته می‌شود. */
+    phone?: string;
     email: string;
   };
 };

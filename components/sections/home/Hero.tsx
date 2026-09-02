@@ -1,6 +1,7 @@
 import { ArrowLeft, Quote } from "lucide-react";
 import Link from "next/link";
 
+import { Parallax } from "@/components/animations/Parallax";
 import { Reveal } from "@/components/animations/Reveal";
 import { TextReveal } from "@/components/animations/TextReveal";
 import { Container } from "@/components/layout/Container";
@@ -101,9 +102,9 @@ export function Hero() {
             </dl>
           </Reveal>
 
-          <div className="order-1 lg:order-2">
+          <Parallax distance={36} className="order-1 lg:order-2">
             <HeroVisual />
-          </div>
+          </Parallax>
 
           <Reveal delay={0.2} className="order-3 space-y-6">
             <figure>

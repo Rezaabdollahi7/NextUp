@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { siteConfig } from "@/constants/site";
 import { fontVariables } from "@/lib/fonts";
 
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           پرش به محتوای اصلی
         </a>
 
+        <SmoothScroll />
         <Navbar />
 
         <main id="main" className="flex-1 pt-24 sm:pt-28">
