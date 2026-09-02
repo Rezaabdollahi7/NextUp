@@ -74,6 +74,32 @@
 
   /* --- Layout ----------------------------------------------------------- */
   --container-page: 80rem;
+
+  /* --- Animation -------------------------------------------------------- */
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(50%);
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   حالت اولیه‌ی عناصر انیمیشن‌دار
+   کلاس `js` را یک اسکریپت کوچک قبل از اولین رنگ‌آمیزی روی <html> می‌گذارد.
+   بنابراین اگر جاوااسکریپت اجرا نشود یا کاربر کاهش حرکت را فعال کرده باشد،
+   محتوا هرگز پنهان نمی‌ماند و پرش اولیه هم رخ نمی‌دهد.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal="self"],
+  .js [data-reveal="words"] [data-word],
+  .js [data-reveal="children"] > * {
+    opacity: 0;
+  }
 }
 
 /* بخش‌های تیره: فقط توکن‌ها عوض می‌شوند، کامپوننت‌ها دست‌نخورده می‌مانند. */
@@ -85,6 +111,9 @@
     --color-on-surface: var(--color-sand-soft);
     --color-muted: color-mix(in oklab, var(--color-sand-soft) 66%, transparent);
     --color-line: color-mix(in oklab, var(--color-sand-soft) 14%, transparent);
+
+    /* رنگ متن هم همین‌جا اعمال می‌شود تا هیچ بخشی فراموش نشود. */
+    color: var(--color-on-surface);
   }
 
   html {

@@ -24,6 +24,17 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fa" dir="rtl" className={`${fontVariables} h-full`}>
+      <head>
+        {/*
+          کلاس `js` قبل از اولین رنگ‌آمیزی اضافه می‌شود تا عناصر انیمیشن‌دار
+          بدون پرش، پنهان شروع کنند و در نبود جاوااسکریپت همیشه دیده شوند.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
