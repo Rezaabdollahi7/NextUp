@@ -23,7 +23,11 @@ export const footerNav: NavGroup[] = [
   },
 ];
 
-/** راه‌های ارتباطی — در فوتر و صفحه‌ی تماس مشترک است. */
+/**
+ * راه‌های ارتباطی — در فوتر و صفحه‌ی تماس مشترک است.
+ * موارد خالی (تلگرام و شماره تماس تا وقتی در `siteConfig` پر نشده‌اند)
+ * به‌صورت خودکار حذف می‌شوند.
+ */
 export const contactLinks: ContactLink[] = [
   {
     title: "ایمیل",
@@ -31,6 +35,27 @@ export const contactLinks: ContactLink[] = [
     href: `mailto:${siteConfig.email}`,
     icon: "mail",
   },
+  ...(siteConfig.telegram
+    ? [
+        {
+          title: "تلگرام",
+          value: siteConfig.telegram.replace(/^https?:\/\//, ""),
+          href: siteConfig.telegram,
+          icon: "telegram",
+          external: true,
+        } satisfies ContactLink,
+      ]
+    : []),
+  ...(siteConfig.phone
+    ? [
+        {
+          title: "شماره تماس",
+          value: siteConfig.phone,
+          href: `tel:${siteConfig.phone}`,
+          icon: "phone",
+        } satisfies ContactLink,
+      ]
+    : []),
   {
     title: "گیت‌هاب",
     value: "github.com/Rezaabdollahi7",
@@ -54,12 +79,19 @@ export const socialLinks: ContactLink[] = [
     icon: "github",
     external: true,
   },
+  ...(siteConfig.telegram
+    ? [
+        {
+          title: "تلگرام",
+          href: siteConfig.telegram,
+          icon: "telegram",
+          external: true,
+        } satisfies ContactLink,
+      ]
+    : []),
   {
     title: "ایمیل",
     href: `mailto:${siteConfig.email}`,
     icon: "mail",
   },
 ];
-
-/** لینک‌های حقوقی نوار پایین فوتر. */
-export const legalNav: NavItem[] = [{ title: "تماس با ما", href: "/contact" }];

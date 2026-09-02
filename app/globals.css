@@ -28,6 +28,7 @@
   --color-muted: color-mix(in oklab, var(--color-ink) 62%, transparent);
   --color-line: color-mix(in oklab, var(--color-ink) 12%, transparent);
   --color-on-brand: var(--color-ink);
+  --color-danger: #c62f24;
 
   /* --- Typography ------------------------------------------------------- */
   --font-sans: var(--font-sans-local), Tahoma, "Segoe UI", system-ui, sans-serif;
@@ -139,6 +140,7 @@
   --color-on-surface: var(--color-sand-soft);
   --color-muted: color-mix(in oklab, var(--color-sand-soft) 66%, transparent);
   --color-line: color-mix(in oklab, var(--color-sand-soft) 14%, transparent);
+  --color-danger: #ff8a80;
 
   /* رنگ متن هم همین‌جا اعمال می‌شود تا هیچ بخشی فراموش نشود. */
   color: var(--color-on-surface);

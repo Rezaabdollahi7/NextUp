@@ -8,7 +8,8 @@ export type IconName =
   | "rocket"
   | "trending-up"
   | "message"
-  | "shield-check";
+  | "shield-check"
+  | "telegram";
 
 export type NavItem = {
   title: string;
