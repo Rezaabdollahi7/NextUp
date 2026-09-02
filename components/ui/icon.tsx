@@ -1,4 +1,13 @@
-import { Globe, Mail, MapPin, Phone } from "lucide-react";
+import {
+  Globe,
+  Mail,
+  MapPin,
+  MessagesSquare,
+  Phone,
+  Rocket,
+  ShieldCheck,
+  TrendingUp,
+} from "lucide-react";
 import type { ComponentProps } from "react";
 
 import type { IconName } from "@/types";
@@ -18,6 +27,10 @@ const icons = {
   globe: Globe,
   phone: Phone,
   "map-pin": MapPin,
+  rocket: Rocket,
+  "trending-up": TrendingUp,
+  message: MessagesSquare,
+  "shield-check": ShieldCheck,
 } as const;
 
 type IconProps = ComponentProps<"svg"> & { name: IconName };

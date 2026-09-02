@@ -1,5 +1,14 @@
 /** آیکون‌های مجاز برای لینک‌های داده‌محور (نگاشت به کامپوننت در لایه‌ی UI). */
-export type IconName = "github" | "mail" | "globe" | "phone" | "map-pin";
+export type IconName =
+  | "github"
+  | "mail"
+  | "globe"
+  | "phone"
+  | "map-pin"
+  | "rocket"
+  | "trending-up"
+  | "message"
+  | "shield-check";
 
 export type NavItem = {
   title: string;

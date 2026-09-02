@@ -77,6 +77,8 @@
 
   /* --- Animation -------------------------------------------------------- */
   --animate-marquee: marquee 38s linear infinite;
+  --animate-accordion-down: accordion-down 0.4s var(--ease-out-expo);
+  --animate-accordion-up: accordion-up 0.3s var(--ease-out-expo);
 
   @keyframes marquee {
     from {
@@ -84,6 +86,28 @@
     }
     to {
       transform: translateX(50%);
+    }
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
     }
   }
 }
@@ -102,18 +126,27 @@
   }
 }
 
-/* بخش‌های تیره: فقط توکن‌ها عوض می‌شوند، کامپوننت‌ها دست‌نخورده می‌مانند. */
+/*
+   پالت تیره. به دو شکل قابل استفاده است:
+   - صفت `data-surface="dark"` روی بخش‌ها (حالت رایج)
+   - کلاس `surface-dark` وقتی باید با یک variant اعمال شود،
+     مثلاً `data-[state=open]:surface-dark` روی آیتم باز آکاردئون.
+*/
+@utility surface-dark {
+  --color-surface: var(--color-ink);
+  --color-surface-soft: var(--color-ink-soft);
+  --color-card: var(--color-ink-soft);
+  --color-on-surface: var(--color-sand-soft);
+  --color-muted: color-mix(in oklab, var(--color-sand-soft) 66%, transparent);
+  --color-line: color-mix(in oklab, var(--color-sand-soft) 14%, transparent);
+
+  /* رنگ متن هم همین‌جا اعمال می‌شود تا هیچ بخشی فراموش نشود. */
+  color: var(--color-on-surface);
+}
+
 @layer base {
   [data-surface="dark"] {
-    --color-surface: var(--color-ink);
-    --color-surface-soft: var(--color-ink-soft);
-    --color-card: var(--color-ink-soft);
-    --color-on-surface: var(--color-sand-soft);
-    --color-muted: color-mix(in oklab, var(--color-sand-soft) 66%, transparent);
-    --color-line: color-mix(in oklab, var(--color-sand-soft) 14%, transparent);
-
-    /* رنگ متن هم همین‌جا اعمال می‌شود تا هیچ بخشی فراموش نشود. */
-    color: var(--color-on-surface);
+    @apply surface-dark;
   }
 
   html {

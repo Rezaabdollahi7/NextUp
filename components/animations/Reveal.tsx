@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import type { ComponentProps, ElementType } from "react";
 
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import { cn } from "@/lib/utils";
+import { cn, mergeRefs } from "@/lib/utils";
 
 type RevealProps = ComponentProps<"div"> & {
   as?: ElementType;
@@ -28,6 +28,7 @@ type RevealProps = ComponentProps<"div"> & {
  */
 export function Reveal({
   as: Tag = "div",
+  ref: forwardedRef,
   delay = 0,
   distance = 24,
   stagger = false,
@@ -81,7 +82,7 @@ export function Reveal({
 
   return (
     <Tag
-      ref={ref}
+      ref={mergeRefs(forwardedRef, ref)}
       data-reveal={stagger ? "children" : "self"}
       className={cn(className)}
       {...props}
