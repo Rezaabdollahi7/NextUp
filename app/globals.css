@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* -------------------------------------------------------------------------- */
+/*  Brand tokens                                                              */
+/*  رنگ‌ها و توکن‌های پایه برند NextUp. سیستم کامل طراحی در اسپرینت ۱ تکمیل    */
+/*  می‌شود؛ این لایه فقط پایه‌ی رنگ و تایپوگرافی را مشخص می‌کند.               */
+/* -------------------------------------------------------------------------- */
+
+@theme {
+  /* Brand palette */
+  --color-brand: #ffa00a;
+  --color-ink: #1a120a;
+  --color-sand: #f4f3e7;
+  --color-sand-soft: #f7f6ee;
+
+  /* Semantic aliases */
+  --color-background: var(--color-sand);
+  --color-foreground: var(--color-ink);
+
+  /* Typography */
+  --font-sans:
+    var(--font-sans-local), Vazirmatn, Tahoma, "Segoe UI", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-ink/10;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  ::selection {
+    @apply bg-brand text-ink;
+  }
+}
