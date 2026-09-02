@@ -74,7 +74,7 @@ export function TeamCard({ member, tone = "brand" }: TeamCardProps) {
       <div className="flex flex-col gap-4 px-1 pb-1 sm:py-2 sm:pe-2">
         <div>
           <h3 className="text-display-sm">{member.name}</h3>
-          <p className="mt-1 text-sm text-brand" dir="ltr">
+          <p className="mt-1 text-sm text-brand-text" dir="ltr">
             {member.role}
           </p>
         </div>

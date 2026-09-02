@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { ComponentProps, ElementType } from "react";
 
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { prefersReducedMotion } from "@/lib/motion";
 import { cn, mergeRefs } from "@/lib/utils";
 
 type RevealProps = ComponentProps<"div"> & {
@@ -17,8 +17,11 @@ type RevealProps = ComponentProps<"div"> & {
    * برای گریدها و فهرست‌های کارت مناسب است.
    */
   stagger?: boolean;
-  /** اجرا بدون انتظار برای اسکرول — برای محتوای بالای صفحه. */
-  immediate?: boolean;
+  /**
+   * محتوای بالای صفحه را با `critical` علامت بزنید: انیمیشن با CSS اجرا
+   * می‌شود و محتوا هرگز منتظر بارگذاری جاوااسکریپت نمی‌ماند.
+   */
+  critical?: boolean;
 };
 
 /**
@@ -32,59 +35,70 @@ export function Reveal({
   delay = 0,
   distance = 24,
   stagger = false,
-  immediate = false,
+  critical = false,
   className,
   ...props
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (critical) return;
+
     const element = ref.current;
     if (!element) return;
 
-    const targets = stagger ? Array.from(element.children) : [element];
-
     if (prefersReducedMotion()) {
-      gsap.set(targets, { opacity: 1, y: 0 });
       element.dataset.reveal = "done";
       return;
     }
 
-    const context = gsap.context(() => {
-      gsap.fromTo(
-        targets,
-        { opacity: 0, y: distance },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          delay,
-          ease: "power3.out",
-          stagger: stagger ? 0.09 : 0,
-          onStart: () => {
-            element.dataset.reveal = "done";
-          },
-          ...(immediate
-            ? {}
-            : {
-                scrollTrigger: {
-                  trigger: element,
-                  start: "top 88%",
-                  once: true,
-                },
-              }),
-        },
-      );
-    }, element);
+    const targets = stagger ? Array.from(element.children) : [element];
 
-    return () => context.revert();
-  }, [delay, distance, immediate, stagger]);
+    let revert: (() => void) | undefined;
+    let cancelled = false;
+
+    void import("@/lib/gsap").then(({ gsap }) => {
+      if (cancelled) return;
+
+      const context = gsap.context(() => {
+        gsap.fromTo(
+          targets,
+          { opacity: 0, y: distance },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            delay,
+            ease: "power3.out",
+            stagger: stagger ? 0.09 : 0,
+            onStart: () => {
+              element.dataset.reveal = "done";
+            },
+            scrollTrigger: {
+              trigger: element,
+              start: "top 88%",
+              once: true,
+            },
+          },
+        );
+      }, element);
+
+      revert = () => context.revert();
+    });
+
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
+  }, [critical, delay, distance, stagger]);
 
   return (
     <Tag
       ref={mergeRefs(forwardedRef, ref)}
       data-reveal={stagger ? "children" : "self"}
-      className={cn(className)}
+      data-critical={critical || undefined}
+      style={critical ? { animationDelay: `${delay}s` } : undefined}
+      className={cn(critical && "animate-rise-in", className)}
       {...props}
     />
   );

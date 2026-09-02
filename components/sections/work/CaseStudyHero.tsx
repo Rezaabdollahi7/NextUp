@@ -16,7 +16,7 @@ export function CaseStudyHero({ project }: { project: Project }) {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid" />
 
       <Container className="relative">
-        <Reveal immediate>
+        <Reveal critical>
           <Link
             href="/work"
             className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-on-surface"
@@ -27,23 +27,24 @@ export function CaseStudyHero({ project }: { project: Project }) {
         </Reveal>
 
         <div className="mt-8 flex flex-col gap-5">
-          <Reveal immediate delay={0.1} className="flex flex-wrap items-center gap-2">
+          <Reveal critical delay={0.1} className="flex flex-wrap items-center gap-2">
             <Badge variant="brand">{project.category}</Badge>
             <Badge variant="outline">{project.year}</Badge>
           </Reveal>
 
           <TextReveal
             as="h1"
+            critical
             delay={0.15}
             text={project.title}
             className="text-display-xl"
           />
 
-          <Reveal immediate delay={0.3}>
+          <Reveal critical delay={0.3}>
             <p className="max-w-2xl text-base text-muted">{project.shortDescription}</p>
           </Reveal>
 
-          <Reveal immediate delay={0.4} className="flex flex-wrap items-center gap-3">
+          <Reveal critical delay={0.4} className="flex flex-wrap items-center gap-3">
             {project.links.live ? (
               <Button asChild trailingIcon>
                 <a

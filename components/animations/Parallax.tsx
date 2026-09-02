@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { ComponentProps } from "react";
 
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { prefersReducedMotion } from "@/lib/motion";
 import { cn, mergeRefs } from "@/lib/utils";
 
 type ParallaxProps = ComponentProps<"div"> & {
@@ -30,24 +30,36 @@ export function Parallax({
     if (prefersReducedMotion()) return;
     if (window.matchMedia("(max-width: 767px)").matches) return;
 
-    const context = gsap.context(() => {
-      gsap.fromTo(
-        element,
-        { y: distance / 2 },
-        {
-          y: -distance / 2,
-          ease: "none",
-          scrollTrigger: {
-            trigger: element,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        },
-      );
-    }, element);
+    let revert: (() => void) | undefined;
+    let cancelled = false;
 
-    return () => context.revert();
+    void import("@/lib/gsap").then(({ gsap }) => {
+      if (cancelled) return;
+
+      const context = gsap.context(() => {
+        gsap.fromTo(
+          element,
+          { y: distance / 2 },
+          {
+            y: -distance / 2,
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        );
+      }, element);
+
+      revert = () => context.revert();
+    });
+
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
   }, [distance]);
 
   return (

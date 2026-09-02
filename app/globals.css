@@ -29,6 +29,13 @@
   --color-line: color-mix(in oklab, var(--color-ink) 12%, transparent);
   --color-on-brand: var(--color-ink);
   --color-danger: #c62f24;
+  /*
+    نارنجی برند روی پس‌زمینه‌ی کِرِم فقط نسبت کنتراست ۱.۸۸ دارد و برای متن
+    قابل قبول نیست. این توکن نسخه‌ی تیره‌ترِ هم‌فامِ آن است (۴.۵+ روی هر سه
+    پس‌زمینه‌ی روشن) و در بخش‌های تیره به همان نارنجی روشن برمی‌گردد.
+    برای پرکردن، حاشیه و آیکون‌های تزئینی همچنان از `--color-brand` استفاده کنید.
+  */
+  --color-brand-text: #9e6100;
 
   /* --- Typography ------------------------------------------------------- */
   --font-sans: var(--font-sans-local), Tahoma, "Segoe UI", system-ui, sans-serif;
@@ -80,6 +87,8 @@
   --animate-marquee: marquee 38s linear infinite;
   --animate-accordion-down: accordion-down 0.4s var(--ease-out-expo);
   --animate-accordion-up: accordion-up 0.3s var(--ease-out-expo);
+  --animate-rise-in: rise-in 0.6s var(--ease-out-expo) both;
+  --animate-lift-in: lift-in 0.7s var(--ease-out-expo) both;
 
   @keyframes marquee {
     from {
@@ -87,6 +96,31 @@
     }
     to {
       transform: translateX(50%);
+    }
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.4em);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /*
+    تیتر اصلی معمولاً همان عنصر LCP است. اینجا فقط `transform` متحرک می‌شود
+    و شفافیت دست‌نخورده می‌ماند، چون مرورگر عنصری با opacity صفر را
+    «رنگ‌آمیزی‌شده» حساب نمی‌کند و LCP عقب می‌افتد.
+  */
+  @keyframes lift-in {
+    from {
+      transform: translateY(0.32em);
+    }
+    to {
+      transform: none;
     }
   }
 
@@ -120,9 +154,14 @@
    محتوا هرگز پنهان نمی‌ماند و پرش اولیه هم رخ نمی‌دهد.
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  .js [data-reveal="self"],
-  .js [data-reveal="words"] [data-word],
-  .js [data-reveal="children"] > * {
+  /*
+    عناصر بالای صفحه (`data-critical`) هرگز پنهان نمی‌شوند: آن‌ها با انیمیشن
+    CSS ظاهر می‌شوند و منتظر بارگذاری جاوااسکریپت نمی‌مانند. اگر تیتر اصلی
+    تا اجرای GSAP پنهان بماند، معیار LCP چند ثانیه عقب می‌افتد.
+  */
+  .js [data-reveal="self"]:not([data-critical]),
+  .js [data-reveal="words"]:not([data-critical]) [data-word],
+  .js [data-reveal="children"]:not([data-critical]) > * {
     opacity: 0;
   }
 }
@@ -141,6 +180,7 @@
   --color-muted: color-mix(in oklab, var(--color-sand-soft) 66%, transparent);
   --color-line: color-mix(in oklab, var(--color-sand-soft) 14%, transparent);
   --color-danger: #ff8a80;
+  --color-brand-text: var(--color-brand);
 
   /* رنگ متن هم همین‌جا اعمال می‌شود تا هیچ بخشی فراموش نشود. */
   color: var(--color-on-surface);

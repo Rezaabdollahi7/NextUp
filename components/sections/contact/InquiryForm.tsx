@@ -56,7 +56,7 @@ export function InquiryForm() {
           مستقیماً به{" "}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="text-brand underline underline-offset-4"
+            className="text-brand-text underline underline-offset-4"
             dir="ltr"
           >
             {siteConfig.email}

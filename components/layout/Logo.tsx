@@ -57,7 +57,7 @@ export function Logo({ className, markOnly = false, size = "sm" }: LogoProps) {
             wordSizes[size],
           )}
         >
-          NextUp<span className="text-brand">.</span>
+          NextUp<span className="text-brand-text">.</span>
         </span>
       )}
     </Link>

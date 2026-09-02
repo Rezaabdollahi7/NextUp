@@ -41,7 +41,7 @@ export function Hero() {
             className="absolute end-0 -top-2 hidden lg:grid"
           />
 
-          <Reveal immediate>
+          <Reveal critical>
             <Badge className="shadow-soft">
               <span className="grid size-6 place-items-center rounded-full bg-ink text-brand">
                 <Sparkle className="size-3 text-current" />
@@ -52,13 +52,14 @@ export function Hero() {
 
           <TextReveal
             as="h1"
+            critical
             delay={0.1}
             text="ایده بعدی شما، از اینجا شروع می‌شود."
             highlight={["شروع"]}
             className="max-w-4xl text-display-xl text-balance"
           />
 
-          <Reveal immediate delay={0.45}>
+          <Reveal critical delay={0.45}>
             <p className="max-w-xl text-base text-balance text-muted">
               از وب‌سایت و فروشگاه اینترنتی تا وب‌اپلیکیشن و محصولات SaaS.
             </p>

@@ -35,11 +35,15 @@ export default function AboutPage() {
       <Section surface="soft">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-            <Reveal>
+            {/*
+              این بلوک روی موبایل داخل اولین صفحه‌نمایش قرار می‌گیرد و بزرگ‌ترین
+              عنصر صفحه است؛ پس نباید تا بارگذاری GSAP پنهان بماند.
+            */}
+            <Reveal critical>
               <SectionHeading label="داستان ما" title="چطور شروع شد" sparkle={false} />
             </Reveal>
 
-            <Reveal delay={0.1} className="flex flex-col gap-5">
+            <Reveal critical delay={0.1} className="flex flex-col gap-5">
               {story.map((paragraph) => (
                 <p key={paragraph} className="text-base text-muted">
                   {paragraph}
@@ -51,7 +55,7 @@ export default function AboutPage() {
                   <div key={stat.label}>
                     <dt className="sr-only">{stat.label}</dt>
                     <dd>
-                      <span className="block font-display text-3xl text-brand">
+                      <span className="block font-display text-3xl text-brand-text">
                         {stat.value}
                       </span>
                       <span className="mt-1 block text-xs text-muted">{stat.label}</span>

@@ -24,7 +24,7 @@ export function Process() {
         >
           {processSteps.map((step, index) => (
             <Card key={step.id} padding="md" interactive className="flex flex-col">
-              <span className="font-display nums-tabular text-2xl text-brand">
+              <span className="font-display nums-tabular text-2xl text-brand-text">
                 {toPersianDigits(String(index + 1).padStart(2, "0"))}
               </span>
 

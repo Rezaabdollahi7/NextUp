@@ -58,7 +58,7 @@ export function ProjectCard({
         <div className="flex items-center justify-between gap-3 border-t border-line pt-4">
           <Link
             href={`/work/${project.slug}`}
-            className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-brand"
+            className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-brand-text"
           >
             {/*
               پوشش کل کارت تا هرجای آن قابل کلیک باشد، بدون تودرتو شدن لینک‌ها.

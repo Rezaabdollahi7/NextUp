@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef } from "react";
 import type { ElementType } from "react";
 
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { prefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type TextRevealProps = {
@@ -13,7 +13,18 @@ type TextRevealProps = {
   as?: ElementType;
   className?: string;
   delay?: number;
+  /**
+   * تیترهای بالای صفحه را با `critical` علامت بزنید.
+   *
+   * در این حالت انیمیشن کاملاً با CSS اجرا می‌شود و متن هیچ‌گاه پنهان
+   * نمی‌ماند؛ چون تیتر اصلی معمولاً همان عنصر LCP است و منتظر ماندنش برای
+   * بارگذاری جاوااسکریپت، سنجه‌ی سرعت را چند ثانیه عقب می‌اندازد.
+   */
+  critical?: boolean;
 };
+
+/** فاصله‌ی زمانی بین ظاهر شدن کلمات، بر حسب ثانیه. */
+const WORD_STEP = 0.045;
 
 /**
  * نمایش پلکانی کلمه‌به‌کلمه‌ی یک تیتر.
@@ -27,50 +38,76 @@ export function TextReveal({
   as: Tag = "h2",
   className,
   delay = 0,
+  critical = false,
 }: TextRevealProps) {
   const ref = useRef<HTMLElement>(null);
   const words = text.split(" ");
 
   useEffect(() => {
+    if (critical) return;
+
     const element = ref.current;
     if (!element) return;
 
-    const targets = element.querySelectorAll("[data-word]");
-
     if (prefersReducedMotion()) {
-      gsap.set(targets, { opacity: 1, y: 0 });
       element.dataset.reveal = "done";
       return;
     }
 
-    const context = gsap.context(() => {
-      gsap.fromTo(
-        targets,
-        { opacity: 0, y: "0.5em" },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay,
-          ease: "power3.out",
-          stagger: 0.055,
-          onStart: () => {
-            element.dataset.reveal = "done";
-          },
-        },
-      );
-    }, element);
+    const targets = element.querySelectorAll("[data-word]");
 
-    return () => context.revert();
-  }, [delay, text]);
+    let revert: (() => void) | undefined;
+    let cancelled = false;
+
+    void import("@/lib/gsap").then(({ gsap }) => {
+      if (cancelled) return;
+
+      const context = gsap.context(() => {
+        gsap.fromTo(
+          targets,
+          { opacity: 0, y: "0.5em" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay,
+            ease: "power3.out",
+            stagger: 0.055,
+            onStart: () => {
+              element.dataset.reveal = "done";
+            },
+          },
+        );
+      }, element);
+
+      revert = () => context.revert();
+    });
+
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
+  }, [critical, delay, text]);
 
   return (
-    <Tag ref={ref} data-reveal="words" className={cn(className)}>
+    <Tag
+      ref={ref}
+      data-reveal="words"
+      data-critical={critical || undefined}
+      className={cn(className)}
+    >
       {words.map((word, index) => (
         <Fragment key={`${word}-${index}`}>
           <span
             data-word
-            className={cn("inline-block", highlight.includes(word) && "text-brand")}
+            style={
+              critical ? { animationDelay: `${delay + index * WORD_STEP}s` } : undefined
+            }
+            className={cn(
+              "inline-block",
+              critical && "animate-lift-in",
+              highlight.includes(word) && "text-brand-text",
+            )}
           >
             {word}
           </span>

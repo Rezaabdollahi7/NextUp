@@ -17,7 +17,7 @@ export function Footer() {
         <Container className="py-14 lg:py-20">
           <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
             <h2 className="max-w-xl text-display-lg text-balance">
-              بیایید ایده‌تان را <span className="text-brand">شروع</span> کنیم
+              بیایید ایده‌تان را <span className="text-brand-text">شروع</span> کنیم
             </h2>
             <SplitButton href="/contact">تماس با ما</SplitButton>
           </div>
@@ -53,7 +53,7 @@ export function Footer() {
               <nav key={group.title} aria-labelledby={`footer-${group.title}`}>
                 <h3
                   id={`footer-${group.title}`}
-                  className="text-sm font-black text-brand"
+                  className="text-sm font-black text-brand-text"
                 >
                   {group.title}
                 </h3>
@@ -73,7 +73,7 @@ export function Footer() {
             ))}
 
             <div>
-              <h3 className="text-sm font-black text-brand">ارتباط</h3>
+              <h3 className="text-sm font-black text-brand-text">ارتباط</h3>
               <ul className="mt-5 space-y-3">
                 {contactLinks.map((link) => (
                   <li key={link.href}>
@@ -94,7 +94,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="text-sm font-black text-brand">تیم</h3>
+              <h3 className="text-sm font-black text-brand-text">تیم</h3>
               <ul className="mt-5 space-y-3">
                 {teamLinks.map((member) => (
                   <li key={member.href}>

@@ -35,6 +35,12 @@ export function WorkGrid({ items }: { items: WorkGridItem[] }) {
 
   return (
     <div>
+      {/*
+        عنوان پنهان: کارت‌های پروژه با h3 شروع می‌شوند و بدون این سرفصل،
+        ترتیب تیترهای صفحه از h1 مستقیم به h3 می‌پرد.
+      */}
+      <h2 className="sr-only">فهرست پروژه‌ها</h2>
+
       <ul className="flex flex-wrap gap-2" role="list">
         {categories.map((category) => {
           const isActive = category === active;

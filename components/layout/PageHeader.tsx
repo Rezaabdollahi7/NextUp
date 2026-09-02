@@ -29,7 +29,7 @@ export function PageHeader({
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid" />
 
       <Container className="relative flex flex-col gap-5">
-        <Reveal immediate>
+        <Reveal critical>
           <Badge size="sm" className="w-fit gap-1.5">
             <Sparkle className="size-3" />
             {label}
@@ -38,6 +38,7 @@ export function PageHeader({
 
         <TextReveal
           as="h1"
+          critical
           delay={0.1}
           text={title}
           highlight={highlight}
@@ -45,7 +46,7 @@ export function PageHeader({
         />
 
         {description ? (
-          <Reveal immediate delay={0.3}>
+          <Reveal critical delay={0.3}>
             <p className="max-w-2xl text-base text-muted">{description}</p>
           </Reveal>
         ) : null}

@@ -63,7 +63,7 @@ export function MobileNav() {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block py-4 font-display text-xl font-black transition-colors hover:text-brand"
+                    className="block py-4 font-display text-xl font-black transition-colors hover:text-brand-text"
                   >
                     {item.title}
                   </Link>

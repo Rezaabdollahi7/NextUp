@@ -1,10 +1,10 @@
 "use client";
 
-import Lenis from "lenis";
+import type Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-import { ScrollTrigger, gsap, prefersReducedMotion } from "@/lib/gsap";
+import { prefersReducedMotion } from "@/lib/motion";
 
 /** فاصله‌ای که هنگام پرش به یک بخش، زیر نوار بالای صفحه باز می‌ماند. */
 const ANCHOR_OFFSET = -112;
@@ -28,20 +28,46 @@ export function SmoothScroll() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    const lenis = new Lenis({
-      duration: 1.05,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      smoothWheel: true,
-      syncTouch: false,
-    });
+    let teardown: (() => void) | undefined;
+    let cancelled = false;
 
-    lenisRef.current = lenis;
+    /*
+      Lenis و GSAP برای اولین رنگ‌آمیزی لازم نیستند. راه‌اندازی‌شان تا بی‌کار
+      شدن مرورگر عقب می‌افتد تا زمان اجرای اسکریپت قبل از نمایش محتوا
+      کوتاه‌تر بماند.
+    */
+    const start = async () => {
+      const [{ default: LenisClass }, { gsap, ScrollTrigger }] = await Promise.all([
+        import("lenis"),
+        import("@/lib/gsap"),
+      ]);
 
-    lenis.on("scroll", ScrollTrigger.update);
+      if (cancelled) return;
 
-    const raf = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+      const lenis = new LenisClass({
+        duration: 1.05,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+        smoothWheel: true,
+        syncTouch: false,
+      });
+
+      lenisRef.current = lenis;
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      const raf = (time: number) => lenis.raf(time * 1000);
+      gsap.ticker.add(raf);
+      gsap.ticker.lagSmoothing(0);
+
+      document.addEventListener("click", handleAnchorClick);
+
+      teardown = () => {
+        document.removeEventListener("click", handleAnchorClick);
+        gsap.ticker.remove(raf);
+        lenis.destroy();
+        lenisRef.current = null;
+      };
+    };
 
     const handleAnchorClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0) return;
@@ -61,17 +87,27 @@ export function SmoothScroll() {
       if (!target) return;
 
       event.preventDefault();
-      lenis.scrollTo(target, { offset: ANCHOR_OFFSET });
+      lenisRef.current?.scrollTo(target, { offset: ANCHOR_OFFSET });
       window.history.replaceState(null, "", `#${hash}`);
     };
 
-    document.addEventListener("click", handleAnchorClick);
+    // سافاری تا نسخه‌های اخیر `requestIdleCallback` نداشت.
+    const supportsIdle = typeof window.requestIdleCallback === "function";
+
+    const idle = supportsIdle
+      ? window.requestIdleCallback(() => void start(), { timeout: 1500 })
+      : window.setTimeout(() => void start(), 300);
 
     return () => {
-      document.removeEventListener("click", handleAnchorClick);
-      gsap.ticker.remove(raf);
-      lenis.destroy();
-      lenisRef.current = null;
+      cancelled = true;
+
+      if (supportsIdle) {
+        window.cancelIdleCallback(idle);
+      } else {
+        window.clearTimeout(idle);
+      }
+
+      teardown?.();
     };
   }, []);
 
@@ -102,7 +138,7 @@ export function SmoothScroll() {
 
     if (isHistoryNavigation.current) {
       isHistoryNavigation.current = false;
-      ScrollTrigger.refresh();
+      void import("@/lib/gsap").then(({ ScrollTrigger }) => ScrollTrigger.refresh());
       return;
     }
 
@@ -116,8 +152,10 @@ export function SmoothScroll() {
     // ارتفاع صفحه‌ی جدید هنوز اندازه‌گیری نشده است؛ بعد از اولین فریم
     // دوباره اندازه می‌گیریم و موقعیت را نهایی می‌کنیم.
     const frame = requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-      toTop();
+      void import("@/lib/gsap").then(({ ScrollTrigger }) => {
+        ScrollTrigger.refresh();
+        toTop();
+      });
     });
 
     return () => cancelAnimationFrame(frame);

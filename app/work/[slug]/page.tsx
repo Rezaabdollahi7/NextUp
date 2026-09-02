@@ -109,7 +109,7 @@ export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
         <Reveal stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {project.features.map((feature, index) => (
             <Card key={feature.title} padding="lg" interactive>
-              <span className="font-display nums-tabular text-sm text-brand">
+              <span className="font-display nums-tabular text-sm text-brand-text">
                 {toPersianDigits(String(index + 1).padStart(2, "0"))}
               </span>
               <CardTitle className="mt-3">{feature.title}</CardTitle>

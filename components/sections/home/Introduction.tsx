@@ -39,7 +39,7 @@ export function Introduction() {
                 <div key={stat.label}>
                   <dt className="sr-only">{stat.label}</dt>
                   <dd>
-                    <span className="block font-display text-3xl text-brand">
+                    <span className="block font-display text-3xl text-brand-text">
                       {stat.value}
                     </span>
                     <span className="mt-1 block text-xs text-muted">{stat.label}</span>

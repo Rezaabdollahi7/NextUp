@@ -30,7 +30,7 @@ export function NextProject({ project }: { project: Project }) {
 
               <p className="max-w-md text-sm text-muted">{project.shortDescription}</p>
 
-              <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-brand">
+              <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-brand-text">
                 مطالعه Case Study
                 <ArrowLeft className="size-4 transition-transform duration-300 ease-out-expo group-hover/next:-translate-x-1" />
               </span>
