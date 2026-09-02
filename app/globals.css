@@ -1,42 +1,166 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* -------------------------------------------------------------------------- */
-/*  Brand tokens                                                              */
-/*  رنگ‌ها و توکن‌های پایه برند NextUp. سیستم کامل طراحی در اسپرینت ۱ تکمیل    */
-/*  می‌شود؛ این لایه فقط پایه‌ی رنگ و تایپوگرافی را مشخص می‌کند.               */
-/* -------------------------------------------------------------------------- */
+/* ==========================================================================
+   NextUp — Design System
+   --------------------------------------------------------------------------
+   رنگ‌ها به‌صورت «توکن معنایی» تعریف شده‌اند. هر بخش می‌تواند با گذاشتن
+   `data-surface="dark"` روی خودش، پالت را برای تمام فرزندانش تیره کند؛
+   بنابراین Button و Card و … بدون prop اضافه، خودشان را با پس‌زمینه تطبیق
+   می‌دهند.
+   ========================================================================== */
 
 @theme {
-  /* Brand palette */
+  /* --- Brand palette --------------------------------------------------- */
   --color-brand: #ffa00a;
+  --color-brand-strong: #ef8f00;
+  --color-brand-soft: #fff1d9;
   --color-ink: #1a120a;
+  --color-ink-soft: #241a12;
   --color-sand: #f4f3e7;
   --color-sand-soft: #f7f6ee;
 
-  /* Semantic aliases */
-  --color-background: var(--color-sand);
-  --color-foreground: var(--color-ink);
+  /* --- Semantic tokens (light surface by default) ----------------------- */
+  --color-surface: var(--color-sand);
+  --color-surface-soft: var(--color-sand-soft);
+  --color-card: #ffffff;
+  --color-on-surface: var(--color-ink);
+  --color-muted: color-mix(in oklab, var(--color-ink) 62%, transparent);
+  --color-line: color-mix(in oklab, var(--color-ink) 12%, transparent);
+  --color-on-brand: var(--color-ink);
 
-  /* Typography */
-  --font-sans:
-    var(--font-sans-local), Vazirmatn, Tahoma, "Segoe UI", system-ui, sans-serif;
+  /* --- Typography ------------------------------------------------------- */
+  --font-sans: var(--font-sans-local), Tahoma, "Segoe UI", system-ui, sans-serif;
+  --font-display:
+    var(--font-display-local), var(--font-sans-local), Tahoma, system-ui, sans-serif;
+
+  /* خط‌های فارسی به فاصله‌ی سطر بازتری نیاز دارند. */
+  --text-xs--line-height: 1.8;
+  --text-sm--line-height: 1.9;
+  --text-base--line-height: 2;
+  --text-lg--line-height: 1.95;
+  --text-xl--line-height: 1.85;
+
+  /* مقیاس تیترها — سیّال و بدون letter-spacing منفی (نامناسب برای فارسی). */
+  --text-display-xl: clamp(2.25rem, 5.6vw, 4.25rem);
+  --text-display-xl--line-height: 1.32;
+  --text-display-xl--font-weight: 900;
+
+  --text-display-lg: clamp(1.875rem, 4vw, 3rem);
+  --text-display-lg--line-height: 1.38;
+  --text-display-lg--font-weight: 900;
+
+  --text-display-md: clamp(1.5rem, 2.8vw, 2.125rem);
+  --text-display-md--line-height: 1.45;
+  --text-display-md--font-weight: 900;
+
+  --text-display-sm: clamp(1.25rem, 2vw, 1.5rem);
+  --text-display-sm--line-height: 1.55;
+  --text-display-sm--font-weight: 700;
+
+  /* --- Radius ----------------------------------------------------------- */
+  --radius-card: 1.5rem;
+  --radius-panel: 2rem;
+  --radius-pill: 999px;
+
+  /* --- Elevation -------------------------------------------------------- */
+  --shadow-soft: 0 1px 2px color-mix(in oklab, var(--color-ink) 6%, transparent);
+  --shadow-card: 0 18px 40px -24px color-mix(in oklab, var(--color-ink) 45%, transparent);
+  --shadow-lift: 0 28px 60px -28px color-mix(in oklab, var(--color-ink) 55%, transparent);
+
+  /* --- Motion ----------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.36, 0.64, 1);
+
+  /* --- Layout ----------------------------------------------------------- */
+  --container-page: 80rem;
 }
 
+/* بخش‌های تیره: فقط توکن‌ها عوض می‌شوند، کامپوننت‌ها دست‌نخورده می‌مانند. */
 @layer base {
-  * {
-    @apply border-ink/10;
+  [data-surface="dark"] {
+    --color-surface: var(--color-ink);
+    --color-surface-soft: var(--color-ink-soft);
+    --color-card: var(--color-ink-soft);
+    --color-on-surface: var(--color-sand-soft);
+    --color-muted: color-mix(in oklab, var(--color-sand-soft) 66%, transparent);
+    --color-line: color-mix(in oklab, var(--color-sand-soft) 14%, transparent);
   }
 
   html {
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background font-sans text-foreground antialiased;
+    background-color: var(--color-sand);
+    color: var(--color-ink);
+    @apply font-sans text-base antialiased;
+  }
+
+  /* تیترها به‌صورت پیش‌فرض با فونت کاغذ. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    font-weight: 900;
   }
 
   ::selection {
-    @apply bg-brand text-ink;
+    background-color: var(--color-brand);
+    color: var(--color-ink);
   }
+
+  /* حالت فوکوس یکسان و واضح در سراسر سایت. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* اعداد فارسی/لاتین در یک خط RTL درست بچینند. */
+  :where(input, textarea, select) {
+    @apply font-sans;
+  }
+}
+
+@layer base {
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+
+/** ریتم عمودی استاندارد بخش‌ها. */
+@utility section-y {
+  padding-block: --spacing(16);
+
+  @variant md {
+    padding-block: --spacing(24);
+  }
+
+  @variant lg {
+    padding-block: --spacing(32);
+  }
+}
+
+/** اعداد لاتین با شکل tabular برای شمارنده‌ها و آمار. */
+@utility nums-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }

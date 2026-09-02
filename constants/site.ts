@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "استودیو توسعه محصولات دیجیتال",
   description:
     "ما در NextUp محصولات دیجیتال مدرن و حرفه‌ای می‌سازیم؛ از وب‌سایت و فروشگاه اینترنتی تا وب‌اپلیکیشن‌ها و محصولات SaaS.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nextup.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nextup.ir",
   locale: "fa_IR",
   email: "srezaabdollahi7@gmail.com",
   github: "https://github.com/Rezaabdollahi7",
