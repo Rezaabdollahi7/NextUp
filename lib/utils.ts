@@ -21,3 +21,10 @@ export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
     }
   };
 }
+
+const PERSIAN_DIGITS = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+
+/** تبدیل ارقام لاتین به فارسی — برای شماره‌گذاری بخش‌ها و آمار. */
+export function toPersianDigits(value: string | number) {
+  return String(value).replace(/\d/g, (digit) => PERSIAN_DIGITS[Number(digit)]);
+}
