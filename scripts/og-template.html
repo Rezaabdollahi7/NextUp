@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: IRX;
+        src: url(../app/fonts/iransans/IRANSansX-Regular.woff2) format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: IRX;
+        src: url(../app/fonts/iransans/IRANSansX-Medium.woff2) format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: KG;
+        src: url(../app/fonts/kaghaz/kaghaz-bold.woff2) format("woff2");
+        font-weight: 900;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .card {
+        width: 1200px;
+        height: 630px;
+        background: #f4f3e7;
+        font-family: IRX;
+        color: #1a120a;
+        overflow: hidden;
+        position: relative;
+      }
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to left, rgba(26, 18, 10, 0.07) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(26, 18, 10, 0.07) 1px, transparent 1px);
+        background-size: 88px 88px;
+      }
+      .wrap {
+        position: relative;
+        height: 100%;
+        padding: 64px 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .mark {
+        width: 64px;
+        height: 64px;
+        border-radius: 999px;
+        background: #ffa00a;
+        display: grid;
+        place-items: center;
+      }
+      .word {
+        font-family: KG;
+        font-weight: 900;
+        font-size: 38px;
+        direction: ltr;
+      }
+      .dot {
+        color: #ffa00a;
+      }
+      h1 {
+        font-family: KG;
+        font-weight: 900;
+        font-size: 76px;
+        line-height: 1.35;
+        word-spacing: 0.12em;
+        max-width: 1000px;
+      }
+      .hl {
+        color: #ffa00a;
+      }
+      .sub {
+        font-size: 26px;
+        line-height: 1.9;
+        color: rgba(26, 18, 10, 0.62);
+        margin-top: 18px;
+        max-width: 900px;
+      }
+      .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .pills {
+        display: flex;
+        gap: 12px;
+      }
+      .pill {
+        border: 1px solid rgba(26, 18, 10, 0.14);
+        border-radius: 999px;
+        padding: 10px 22px;
+        font-size: 20px;
+      }
+      .pill.solid {
+        background: #1a120a;
+        color: #f7f6ee;
+        border-color: #1a120a;
+      }
+      .url {
+        font-size: 24px;
+        font-weight: 500;
+        direction: ltr;
+        color: rgba(26, 18, 10, 0.7);
+      }
+      .blob {
+        position: absolute;
+        border-radius: 999px;
+        border: 1px solid rgba(26, 18, 10, 0.1);
+      }
+      .b1 {
+        width: 520px;
+        height: 520px;
+        left: -190px;
+        bottom: -230px;
+      }
+      .b2 {
+        width: 700px;
+        height: 700px;
+        left: -260px;
+        bottom: -320px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="grid"></div>
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="wrap">
+        <div class="top">
+          <div class="mark">
+            <svg
+              width="34"
+              height="34"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1A120A"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 16.5V8" />
+              <path d="M7.5 12.5 12 8l4.5 4.5" />
+            </svg>
+          </div>
+          <div class="word">NextUp<span class="dot">.</span></div>
+        </div>
+        <div>
+          <h1>ایده بعدی شما،<br />از اینجا <span class="hl">شروع</span> می‌شود.</h1>
+          <p class="sub">
+            تیم توسعه محصولات دیجیتال — وب‌سایت، وب‌اپلیکیشن، فروشگاه اینترنتی و SaaS
+          </p>
+        </div>
+        <div class="bottom">
+          <div class="pills">
+            <span class="pill solid">Next.js</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">Node.js</span>
+          </div>
+          <div class="url">nextup.ir</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

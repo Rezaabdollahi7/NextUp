@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { FinalCTA } from "@/components/sections/home/FinalCTA";
 import { Hero } from "@/components/sections/home/Hero";
 import { Introduction } from "@/components/sections/home/Introduction";
@@ -7,6 +9,10 @@ import { ServicesSection } from "@/components/sections/home/ServicesSection";
 import { TechStack } from "@/components/sections/home/TechStack";
 import { Team } from "@/components/sections/home/Team";
 import { WhyNextUp } from "@/components/sections/home/WhyNextUp";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function HomePage() {
   return (
