@@ -107,6 +107,11 @@
     font-weight: 900;
   }
 
+  /* فاصله‌ی کلمات در فونت کاغذ کم است و کلمات فارسی به هم می‌چسبند. */
+  .font-display {
+    word-spacing: 0.12em;
+  }
+
   ::selection {
     background-color: var(--color-brand);
     color: var(--color-ink);
@@ -157,6 +162,16 @@
   @variant lg {
     padding-block: --spacing(32);
   }
+}
+
+/** گرید بسیار محو پس‌زمینه — همان بافت قالب در بخش‌های روشن. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to left, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 88px 88px;
+  background-position: center top;
+  opacity: 0.5;
 }
 
 /** اعداد لاتین با شکل tabular برای شمارنده‌ها و آمار. */

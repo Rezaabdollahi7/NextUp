@@ -97,8 +97,9 @@ export function ButtonIcon({ className, ...props }: ComponentProps<"span">) {
       className={cn(
         "grid size-(--btn-icon-size) shrink-0 place-items-center rounded-full",
         "bg-(--btn-icon-bg) text-(--btn-icon-fg)",
+        // در چیدمان راست‌به‌چپ، «جلو رفتن» یعنی حرکت به سمت چپ.
         "transition-transform duration-300 ease-out-expo",
-        "group-hover/button:-rotate-45",
+        "group-hover/button:-translate-x-0.5",
         className,
       )}
       {...props}
