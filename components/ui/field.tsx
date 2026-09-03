@@ -33,7 +33,7 @@ export function Select({ className, children, ...props }: ComponentProps<"select
   return (
     <div className="relative">
       <select
-        className={cn(controlBase, "h-12 appearance-none ps-10 pe-4", className)}
+        className={cn(controlBase, "h-12 min-w-0 appearance-none ps-10 pe-4", className)}
         {...props}
       >
         {children}

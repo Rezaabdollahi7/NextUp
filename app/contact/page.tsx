@@ -26,7 +26,11 @@ export default function ContactPage() {
 
       <Section flush className="pb-16 md:pb-24 lg:pb-32">
         <Container>
-          <div className="grid items-start gap-6 lg:grid-cols-[1.6fr_1fr]">
+          {/*
+            بدون `min-w-0` آیتم‌های گرید زیر عرض ذاتی محتوایشان کوچک
+            نمی‌شوند و روی نمایشگرهای باریک از کانتینر بیرون می‌زنند.
+          */}
+          <div className="grid items-start gap-6 lg:grid-cols-[1.6fr_1fr] [&>*]:min-w-0">
             <Reveal>
               <InquiryForm />
             </Reveal>

@@ -57,12 +57,12 @@ export function Footer() {
                 >
                   {group.title}
                 </h3>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-4 space-y-1">
                   {group.items.map((item) => (
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className="text-sm text-muted transition-colors hover:text-on-surface"
+                        className="inline-block py-1.5 text-sm text-muted transition-colors hover:text-on-surface"
                       >
                         {item.title}
                       </Link>
@@ -74,7 +74,7 @@ export function Footer() {
 
             <div>
               <h3 className="text-sm font-black text-brand-text">ارتباط</h3>
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-4 space-y-1">
                 {contactLinks.map((link) => (
                   <li key={link.href}>
                     <a
@@ -82,7 +82,7 @@ export function Footer() {
                       {...(link.external
                         ? { target: "_blank", rel: "noreferrer noopener" }
                         : {})}
-                      className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-on-surface"
+                      className="inline-flex items-center gap-2 py-1.5 text-sm text-muted transition-colors hover:text-on-surface"
                       dir="ltr"
                     >
                       <Icon name={link.icon} className="size-4 shrink-0" />
@@ -95,14 +95,14 @@ export function Footer() {
 
             <div>
               <h3 className="text-sm font-black text-brand-text">تیم</h3>
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-4 space-y-1">
                 {teamLinks.map((member) => (
                   <li key={member.href}>
                     <a
                       href={member.href}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="text-sm text-muted transition-colors hover:text-on-surface"
+                      className="inline-block py-1.5 text-sm text-muted transition-colors hover:text-on-surface"
                     >
                       {member.title}
                     </a>
