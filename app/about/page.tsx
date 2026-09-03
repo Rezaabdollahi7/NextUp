@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import { Reveal } from "@/components/animations/Reveal";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -13,13 +11,14 @@ import { Icon } from "@/components/ui/icon";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { teamStats } from "@/constants/stats";
 import { principles, story } from "@/data/about";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "درباره ما",
   description:
     "NextUp یک تیم دو نفره‌ی توسعه نرم‌افزار است که محصولات دیجیتال را از ایده تا Production می‌سازد. داستان، فلسفه‌ی کاری و اعضای تیم.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

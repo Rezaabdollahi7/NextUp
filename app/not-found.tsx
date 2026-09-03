@@ -12,6 +12,9 @@ import { mainNav } from "@/data/navigation";
 export const metadata: Metadata = {
   title: "صفحه پیدا نشد",
   robots: { index: false, follow: true },
+  // بدون این، canonical صفحه‌ی اصلی به ارث می‌رسد و هر نشانی اشتباهی خود را
+  // نسخه‌ی دیگری از صفحه‌ی خانه معرفی می‌کند.
+  alternates: { canonical: null },
 };
 
 export default function NotFound() {

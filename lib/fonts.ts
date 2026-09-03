@@ -12,7 +12,14 @@ import localFont from "next/font/local";
  * را نگه دارید.
  */
 
-/** فونت متن — IRANSansX (وزن‌های ۴۰۰ / ۵۰۰ / ۷۰۰). */
+/**
+ * فونت متن — IRANSansX (وزن‌های ۴۰۰ و ۵۰۰).
+ *
+ * وزن ۷۰۰ عمداً اینجا نیست: تمام تیترها فونت «کاغذ» می‌گیرند و در متن‌های
+ * عادی هیچ‌جا `font-bold` یا `<strong>` استفاده نشده. چون next/font همه‌ی
+ * فایل‌های `src` را preload می‌کند، نگه داشتنش یعنی ۲۵ کیلوبایت دانلود
+ * بی‌استفاده در مسیر بحرانی هر صفحه.
+ */
 export const fontSans = localFont({
   src: [
     {
@@ -23,11 +30,6 @@ export const fontSans = localFont({
     {
       path: "../app/fonts/iransans/IRANSansX-Medium.woff2",
       weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../app/fonts/iransans/IRANSansX-Bold.woff2",
-      weight: "700",
       style: "normal",
     },
   ],

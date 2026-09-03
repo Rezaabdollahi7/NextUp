@@ -19,6 +19,18 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+/**
+ * آیا این لینک به همان صفحه‌ای اشاره می‌کند که باز است؟
+ *
+ * Next.js هر لینکِ داخل دید را Prefetch می‌کند. لینک‌های منو در همه‌ی صفحات
+ * دیده می‌شوند، پس بدون این بررسی هر صفحه داده‌ی کامل خودش را دوباره می‌گیرد
+ * — روی صفحه‌ی اصلی حدود ۱۹۰ کیلوبایت. بخش «#» هم باید کنار گذاشته شود،
+ * وگرنه «/#services» روی صفحه‌ی اصلی مسیر «/» را دوباره می‌گیرد.
+ */
+function isCurrentRoute(pathname: string, href: string) {
+  return (href.split("#")[0] || "/") === pathname;
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const sentinel = useRef<HTMLDivElement>(null);
@@ -67,6 +79,7 @@ export function Navbar() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      prefetch={isCurrentRoute(pathname, item.href) ? false : undefined}
                       aria-current={active ? "page" : undefined}
                       className={cn(
                         "relative inline-flex h-10 items-center rounded-pill px-4 text-sm transition-colors",
@@ -100,7 +113,12 @@ export function Navbar() {
               </a>
 
               <Button asChild variant="contrast" className="hidden sm:inline-flex">
-                <Link href="/contact">شروع پروژه</Link>
+                <Link
+                  href="/contact"
+                  prefetch={isCurrentRoute(pathname, "/contact") ? false : undefined}
+                >
+                  شروع پروژه
+                </Link>
               </Button>
 
               <MobileNav />

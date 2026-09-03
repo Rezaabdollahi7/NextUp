@@ -25,6 +25,10 @@ export function Logo({ className, markOnly = false, size = "sm" }: LogoProps) {
     <Link
       href="/"
       aria-label="NextUp — صفحه اصلی"
+      // نشان برند در هر صفحه هست؛ اگر Prefetch شود، صفحه‌ی اصلی روی خودِ
+      // صفحه‌ی اصلی هم دوباره گرفته می‌شود. آیتم «خانه» در منو همان مسیر را
+      // پوشش می‌دهد، پس اینجا لازم نیست.
+      prefetch={false}
       className={cn("group/logo inline-flex items-center gap-2.5", className)}
     >
       <span

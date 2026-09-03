@@ -1,18 +1,17 @@
-import type { Metadata } from "next";
-
 import { Reveal } from "@/components/animations/Reveal";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Section } from "@/components/layout/Section";
 import { ContactChannels } from "@/components/sections/contact/ContactChannels";
 import { InquiryForm } from "@/components/sections/contact/InquiryForm";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "تماس با ما",
   description:
     "درخواست پروژه‌ی خود را برای تیم NextUp بفرستید یا مستقیم از طریق ایمیل و گیت‌هاب در تماس باشید.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

@@ -1,18 +1,17 @@
-import type { Metadata } from "next";
-
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Section } from "@/components/layout/Section";
 import { WorkGrid, type WorkGridItem } from "@/components/sections/work/WorkGrid";
 import { ProjectCard } from "@/components/ui/project-card";
 import { projects } from "@/data/projects";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "نمونه‌کارها",
   description:
     "محصولات دیجیتالی که تیم NextUp ساخته است؛ از پلتفرم‌های SaaS و وب‌اپلیکیشن تا وب‌سایت‌های مارکتینگ.",
-  alternates: { canonical: "/work" },
-};
+  path: "/work",
+});
 
 export default function WorkPage() {
   // کارت‌ها در سرور رندر می‌شوند و فقط انتخابشان به کلاینت سپرده می‌شود.

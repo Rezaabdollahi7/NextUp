@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { ProjectImage } from "@/components/ui/project-image";
 import { TechBadge } from "@/components/ui/tech-badge";
+import { pageMetadata } from "@/lib/seo";
 import { toPersianDigits } from "@/lib/utils";
 import { getNextProject, getProjectBySlug, projects } from "@/data/projects";
 
@@ -25,17 +26,12 @@ export async function generateMetadata(
 
   if (!project) return {};
 
-  return {
+  return pageMetadata({
     title: `${project.title} — ${project.category}`,
     description: project.shortDescription,
-    alternates: { canonical: `/work/${project.slug}` },
-    openGraph: {
-      type: "article",
-      title: `${project.title} — ${project.category}`,
-      description: project.shortDescription,
-      url: `/work/${project.slug}`,
-    },
-  };
+    path: `/work/${project.slug}`,
+    type: "article",
+  });
 }
 
 export default async function ProjectPage(props: PageProps<"/work/[slug]">) {
