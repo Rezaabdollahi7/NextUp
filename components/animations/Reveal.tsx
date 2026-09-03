@@ -22,6 +22,11 @@ type RevealProps = ComponentProps<"div"> & {
    * می‌شود و محتوا هرگز منتظر بارگذاری جاوااسکریپت نمی‌ماند.
    */
   critical?: boolean;
+  /**
+   * ظاهر شدن همراه با برطرف شدن تدریجی تاری.
+   * چون انیمیشن `filter` سنگین است، فقط برای گروه‌های کوچک کارت مناسب است.
+   */
+  blur?: boolean;
 };
 
 /**
@@ -36,6 +41,7 @@ export function Reveal({
   distance = 24,
   stagger = false,
   critical = false,
+  blur = false,
   className,
   ...props
 }: RevealProps) {
@@ -63,10 +69,11 @@ export function Reveal({
       const context = gsap.context(() => {
         gsap.fromTo(
           targets,
-          { opacity: 0, y: distance },
+          { opacity: 0, y: distance, ...(blur ? { filter: "blur(10px)" } : {}) },
           {
             opacity: 1,
             y: 0,
+            ...(blur ? { filter: "blur(0px)" } : {}),
             duration: 0.9,
             delay,
             ease: "power3.out",
@@ -90,7 +97,7 @@ export function Reveal({
       cancelled = true;
       revert?.();
     };
-  }, [critical, delay, distance, stagger]);
+  }, [blur, critical, delay, distance, stagger]);
 
   return (
     <Tag

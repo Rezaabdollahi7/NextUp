@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ElementType } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -33,11 +33,22 @@ const cardVariants = cva("relative rounded-card border transition-all duration-5
   },
 });
 
-type CardProps = ComponentProps<"div"> & VariantProps<typeof cardVariants>;
+type CardProps = ComponentProps<"div"> &
+  VariantProps<typeof cardVariants> & {
+    /** تگ خروجی — برای کارت‌هایی که معنای معنایی دارند، مثلاً `figure`. */
+    as?: ElementType;
+  };
 
-export function Card({ className, variant, padding, interactive, ...props }: CardProps) {
+export function Card({
+  as: Tag = "div",
+  className,
+  variant,
+  padding,
+  interactive,
+  ...props
+}: CardProps) {
   return (
-    <div
+    <Tag
       data-slot="card"
       data-surface={variant === "invert" ? "dark" : undefined}
       className={cn(cardVariants({ variant, padding, interactive }), className)}

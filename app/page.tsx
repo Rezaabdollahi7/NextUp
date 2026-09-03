@@ -8,6 +8,7 @@ import { SelectedProjects } from "@/components/sections/home/SelectedProjects";
 import { ServicesSection } from "@/components/sections/home/ServicesSection";
 import { TechStack } from "@/components/sections/home/TechStack";
 import { Team } from "@/components/sections/home/Team";
+import { Testimonials } from "@/components/sections/home/Testimonials";
 import { WhyNextUp } from "@/components/sections/home/WhyNextUp";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Introduction />
       <ServicesSection />
       <SelectedProjects />
+      <Testimonials />
       <WhyNextUp />
       <Process />
       <TechStack />
