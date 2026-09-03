@@ -7,6 +7,7 @@ import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Badge } from "@/components/ui/badge";
 import { Button, ButtonIcon } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { ProjectImage } from "@/components/ui/project-image";
 import type { Project } from "@/types";
 
@@ -61,7 +62,23 @@ export function CaseStudyHero({ project }: { project: Project }) {
               </Button>
             ) : null}
 
-            <Button asChild variant="outline" trailingIcon>
+            {project.links.repo ? (
+              <Button asChild variant="outline" trailingIcon>
+                <a
+                  href={project.links.repo}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  dir="ltr"
+                >
+                  کد منبع
+                  <ButtonIcon>
+                    <Icon name="github" className="size-4" />
+                  </ButtonIcon>
+                </a>
+              </Button>
+            ) : null}
+
+            <Button asChild variant="ghost" trailingIcon>
               <Link href="/contact">
                 پروژه‌ی مشابه دارید؟
                 <ButtonIcon>
